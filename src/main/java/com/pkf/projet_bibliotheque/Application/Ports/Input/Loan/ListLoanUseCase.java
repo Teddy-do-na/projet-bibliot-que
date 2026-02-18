@@ -8,4 +8,6 @@ public interface ListLoanUseCase {
     List<Loan> findAllLoans();
     List<Loan> findLoanByMemberId(Long memberId);
     List<Loan> findLoanByBookId(Long bookId);
+    List<Loan> findActiveLoans();
+    List<Loan> findOverdueLoans();
 }
