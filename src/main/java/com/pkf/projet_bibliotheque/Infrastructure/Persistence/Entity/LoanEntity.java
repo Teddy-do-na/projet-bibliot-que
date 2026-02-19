@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "loans")  // Correction: table au pluriel et minuscules
-@Getter
+@Table(name = "loans")
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,17 +24,14 @@ public class LoanEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    // CORRECTION: Utiliser BookEntity au lieu de java.awt.print.Book
     @ManyToOne
-    @JoinColumn(name = "book_id")  // Convention: book_id plutôt que id_book
-    private BookEntity book;  // ← Changé de Book à BookEntity
+    @JoinColumn(name = "book_id")
+    private BookEntity book;
 
-    // CORRECTION: Utiliser MemberEntity au lieu de Member (si Member est une entité JPA)
     @ManyToOne
-    @JoinColumn(name = "member_id")  // Convention: member_id
-    private MemberEntity member;  // ← Si MemberEntity existe, sinon à créer
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
 
-    // Ajoutez les champs manquants pour un prêt
     @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;
 
@@ -43,20 +40,7 @@ public class LoanEntity {
 
     @Column(name = "return_date")
     private LocalDate returnDate;
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "penalty")
+    private BigDecimal penalty;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 }
