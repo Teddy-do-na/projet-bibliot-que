@@ -2,6 +2,8 @@ package com.pkf.projet_bibliotheque.Application.Ports.Input.Member;
 
 import com.pkf.projet_bibliotheque.Domain.model.Member;
 
-public interface CreateMemberUsecase {
-    Member createMember(Member member);
+import java.util.List;
+
+public interface ListMemberUseCase {
+    List<Member> findAllMembers();
 }
