@@ -1,21 +1,22 @@
 package com.pkf.projet_bibliotheque.Presentation.Dto.Request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class LoanRequestDto {
-    private Long memberId;
-    private Long bookId;
-    private LocalDateTime loanDate;
-    private LocalDateTime dueDate;
-    private LocalDateTime returnDate;
-    private BigDecimal penalty;
+
+public record LoanRequestDto (
+        @NotBlank(message = "obligatoire")
+        Long memberId,
+        @NotBlank(message = "obligatoire")
+        Long bookId,
+        @NotBlank(message = "obligatoire")
+        LocalDateTime loanDate,
+        @NotBlank(message = "obligatoire")
+        LocalDateTime dueDate,
+        @NotBlank(message = "obligatoire")
+        LocalDateTime returnDate,
+        @NotBlank(message = "obligatoire")
+        BigDecimal penalty
+){
 }
