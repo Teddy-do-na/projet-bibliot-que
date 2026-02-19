@@ -1,8 +1,7 @@
 package com.pkf.projet_bibliotheque.Application.Services.Member;
 
-import com.pkf.projet_bibliotheque.Application.Ports.Input.Member.CreateMemberUsecase;
+import com.pkf.projet_bibliotheque.Application.Ports.Input.Member.DeleteMemberUseCase;
 import com.pkf.projet_bibliotheque.Application.Ports.Output.MemberRepository;
-import com.pkf.projet_bibliotheque.Domain.model.Member;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CreateMemberService implements CreateMemberUsecase {
+public class DeleteMemberService implements DeleteMemberUseCase {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member createMember(Member member) {
-        return memberRepository.save(member);
+    public void deleteMember(Long id) {
+        memberRepository.deleteById(id);
     }
 }

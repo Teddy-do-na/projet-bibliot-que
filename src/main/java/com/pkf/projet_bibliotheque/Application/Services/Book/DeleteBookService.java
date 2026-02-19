@@ -1,8 +1,7 @@
 package com.pkf.projet_bibliotheque.Application.Services.Book;
 
-import com.pkf.projet_bibliotheque.Application.Ports.Input.Book.CreateBookUseCase;
+import com.pkf.projet_bibliotheque.Application.Ports.Input.Book.DeleteBookUseCase;
 import com.pkf.projet_bibliotheque.Application.Ports.Output.BookRepository;
-import com.pkf.projet_bibliotheque.Domain.model.Book;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CreateBookService implements CreateBookUseCase {
+public class DeleteBookService implements DeleteBookUseCase {
     private final BookRepository bookRepository;
 
     @Override
-    public Book createBook(Book book) {
-        return bookRepository.save(book);
+    public void deleteBook(Long id) {
+        bookRepository.deleteByBookId(id);
     }
 }

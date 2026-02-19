@@ -17,4 +17,6 @@ public interface LoanRepository {
     boolean existsByMemberIdAndBookIdAndReturnDateIsNull(Long memberId, Long bookId);
     List<Loan> findByMemberIdAndReturnDateIsNull(Long memberId);
     List<Loan> findOverdueLoans();
+
+    boolean existById(Long loanId);
 }
