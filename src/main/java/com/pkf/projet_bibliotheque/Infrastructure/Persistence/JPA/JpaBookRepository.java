@@ -1,9 +1,26 @@
 package com.pkf.projet_bibliotheque.Infrastructure.Persistence.JPA;
 
 import com.pkf.projet_bibliotheque.Domain.model.Book;
+import com.pkf.projet_bibliotheque.Infrastructure.Persistence.Entity.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+
+import java.util.List;
+import java.util.Optional;
+
 @Repository
-public interface JpaBookRepository extends JpaRepository<Book, Integer> {
+public interface JpaBookRepository extends JpaRepository<BookEntity, Integer> {
+    Optional<BookEntity> findById(Long id);
+    void deleteById(Long id);
+
+    List<BookEntity> findByTitle(String title);
+
+    List<BookEntity> findByAuthor(String author);
+
+    List<BookEntity> findByCategory(String category);
+
+    boolean existsById(Long id);
+
+    Optional<BookEntity> findByTotalCopiesGreaterThan(int minCopies);
 }
