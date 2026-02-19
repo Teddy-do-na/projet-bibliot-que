@@ -10,7 +10,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/projet-bibliotheque?sslmode=disable
     username: postgres
-    password: Teddy
+    password: maman2025
     driver-class-name: org.postgresql.Driver
 
   jpa:
