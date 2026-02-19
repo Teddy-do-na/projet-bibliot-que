@@ -29,8 +29,4 @@ public interface LoanRepository {
     long countActiveByBookId(Long bookId);
 
     void deleteById(Long loanId);
-
-    void updateReturnDate(Long loanId, LocalDateTime returnDate);
-
-    void updatePenalty(Long loanId, BigDecimal penalty);
 }
