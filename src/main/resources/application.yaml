@@ -3,14 +3,14 @@ spring:
     name: projet-bibliotheque
   security:
     user:
-      name: annette       # Utilisateur en mémoire pour Spring Security
-      password: annette2005
+      name: teddy       # Utilisateur en mémoire pour Spring Security
+      password: teddy123
       roles: ADMIN
 
   datasource:
     url: jdbc:postgresql://localhost:5432/projet-bibliotheque?sslmode=disable
     username: postgres
-    password: maman2025
+    password: Teddy
     driver-class-name: org.postgresql.Driver
 
   jpa:
