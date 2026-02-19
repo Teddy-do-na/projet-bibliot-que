@@ -1,20 +1,22 @@
 package com.pkf.projet_bibliotheque.Application.Services.Member;
 
-import com.pkf.projet_bibliotheque.Application.Ports.Input.Member.CreateMemberUsecase;
+import com.pkf.projet_bibliotheque.Application.Ports.Input.Member.ListMemberUseCase;
 import com.pkf.projet_bibliotheque.Application.Ports.Output.MemberRepository;
 import com.pkf.projet_bibliotheque.Domain.model.Member;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CreateMemberService implements CreateMemberUsecase {
+public class ListMemberService implements ListMemberUseCase {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member createMember(Member member) {
-        return memberRepository.save(member);
+    public List<Member> findAllMembers() {
+        return memberRepository.findAllMembers();
     }
 }
