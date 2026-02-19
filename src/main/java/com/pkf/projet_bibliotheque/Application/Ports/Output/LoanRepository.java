@@ -1,8 +1,7 @@
 package com.pkf.projet_bibliotheque.Application.Ports.Output;
 
 import com.pkf.projet_bibliotheque.Domain.model.Loan;
-import java.time.LocalDateTime;
-import java.math.BigDecimal;
+
 import java.util.List;
 import java.util.Optional;
 
