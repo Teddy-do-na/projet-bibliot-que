@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -17,8 +19,7 @@ public class UpdateBookService implements UpdateBookUseCase {
 
     @Override
     public Book updateBook(Long id, Book book) {
-        Book updatedBook = bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException("Livre non trouvé avec cette id : " + id));
+        Book updatedBook = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Livre non trouvé avec cette id : " + id));
         if (book.getTitle() != null) updatedBook.setTitle(book.getTitle());
         if (book.getAuthor() != null) updatedBook.setAuthor(book.getAuthor());
         if (book.getCategory() != null) updatedBook.setCategory(book.getCategory());

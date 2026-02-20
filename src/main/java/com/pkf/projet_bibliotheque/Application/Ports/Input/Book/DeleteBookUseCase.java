@@ -1,5 +1,7 @@
 package com.pkf.projet_bibliotheque.Application.Ports.Input.Book;
 
+import java.util.UUID;
+
 public interface DeleteBookUseCase {
-    void deleteBook(Long id);
+    Void deleteBook(Long id);
 }

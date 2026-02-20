@@ -13,34 +13,21 @@ import java.net.http.HttpHeaders;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface JpaLoanRepository extends JpaRepository<LoanEntity, Integer> {
+public interface JpaLoanRepository extends JpaRepository<LoanEntity, UUID> {
     Optional<LoanEntity> findById(Long id);
 
     List<LoanEntity> findByMemberId(Long memberId);
 
     List<LoanEntity> findByBookId(Long bookId);
 
-    List<LoanEntity> findByMemberIdAndReturnDateIsNull(Long memberId);
-
     boolean existsByMemberIdAndBookIdAndReturnDateIsNull(Long memberId, Long bookId);
 
     @Query("SELECT l FROM LoanEntity l WHERE l.dueDate < CURRENT_TIMESTAMP AND l.returnDate IS NULL")
     List<LoanEntity> findOverdueLoans();
 
-    @Query("SELECT COUNT(l) FROM LoanEntity l WHERE l.memberId = :memberId AND l.returnDate IS NULL")
-    long countActiveByMemberId(Long memberId);
-
-    @Query("SELECT COUNT(l) FROM LoanEntity l WHERE l.bookId = :bookId AND l.returnDate IS NULL")
-    long countActiveByBookId(Long bookId);
-
     void deleteById(Long loanId);
 
-    @Modifying
-    @Query("UPDATE LoanEntity l SET l.returnDate = :returnDate WHERE l.id = :loanId")
-    void updateReturnDate(Long loanId, LocalDateTime returnDate);
-    @Modifying
-    @Query("UPDATE LoanEntity l SET l.penalty = :penalty WHERE l.id = :loanId")
-    void updatePenalty(@Param("loanId") Long loanId, @Param("penalty") BigDecimal penalty);
 }

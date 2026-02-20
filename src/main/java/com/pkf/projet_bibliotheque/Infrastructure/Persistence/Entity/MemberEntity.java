@@ -17,10 +17,9 @@ import java.util.UUID;
 public class MemberEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
     @Column(name = "Name", columnDefinition = "TEXT")
     private String name;
     @Column(name = "FirtName")

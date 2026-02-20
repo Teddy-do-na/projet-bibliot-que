@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class DeleteLoanService implements DeleteLoanUseCase {
 
     @Override
     public void deleteLoan(Long loanId) {
-        if (!loanRepository.existById(loanId)){
+        if (!loanRepository.existsById(loanId)){
             throw new LoanNotFoundException("pret non trouvé avec l'id " + loanId);
         }
         loanRepository.deleteById(loanId);
