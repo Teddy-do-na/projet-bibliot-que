@@ -17,6 +17,6 @@ public class ListMemberService implements ListMemberUseCase {
 
     @Override
     public List<Member> findAllMembers() {
-        return memberRepository.findAllMembers();
+        return memberRepository.findAll();
     }
 }

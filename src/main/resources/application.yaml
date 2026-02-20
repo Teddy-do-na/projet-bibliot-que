@@ -16,7 +16,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update            # ✅ Crée/Met à jour automatiquement les tables selon les entités
+      ddl-auto: create-drop           # ✅ Crée/Met à jour automatiquement les tables selon les entités
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -39,47 +40,10 @@ public class MemberRepositoryAdapter implements MemberRepository {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<Member> findByEmail(String email) {
-        return jpaMemberRepository.findByEmail(email)
-                .map(memberEntityMapper::toDomain);
-    }
-
-    @Override
-    public List<Member> findByName(String name) {
-        return jpaMemberRepository.findByName(name)
-                .stream()
-                .map(memberEntityMapper::toDomain)
-                .collect(Collectors.toList());
-
-
-    }
-
-    @Override
-    public List<Member> findByFirstName(String firstName) {
-        return jpaMemberRepository.findByFirstName(firstName)
-                .stream()
-                .map(memberEntityMapper::toDomain)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public void deleteById(Long id) {
         jpaMemberRepository.deleteById(id);
     }
 
-    @Override
-    public boolean existsById(Long id) {
-        return jpaMemberRepository.existsById(id);
-    }
-
-    @Override
-    public boolean existsByEmail(String email) {
-        return jpaMemberRepository.existsByEmail(email);
-    }
-
-    @Override
-    public long count() {
-        return jpaMemberRepository.count();
-    }
 }

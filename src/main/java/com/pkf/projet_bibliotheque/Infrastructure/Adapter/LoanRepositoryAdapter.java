@@ -8,10 +8,9 @@ import com.pkf.projet_bibliotheque.Infrastructure.Persistence.Mapper.LoanEntityM
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -57,13 +56,6 @@ public class LoanRepositoryAdapter implements LoanRepository {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Loan> findByMemberIdAndReturnDateIsNull(Long memberId) {
-        return jpaLoanRepository.findByMemberIdAndReturnDateIsNull(memberId)
-                .stream()
-                .map(loanEntityMapper::toDomain)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public boolean existsByMemberIdAndBookIdAndReturnDateIsNull(Long memberId, Long bookId) {
@@ -80,12 +72,12 @@ public class LoanRepositoryAdapter implements LoanRepository {
 
     @Override
     public long countActiveByMemberId(Long memberId) {
-        return jpaLoanRepository.countActiveByMemberId(memberId);
+        return countActiveByMemberId(memberId);
     }
 
     @Override
     public long countActiveByBookId(Long bookId) {
-        return jpaLoanRepository.countActiveByBookId(bookId);
+        return countActiveByBookId(bookId);
     }
 
     @Override
@@ -94,12 +86,9 @@ public class LoanRepositoryAdapter implements LoanRepository {
     }
 
     @Override
-    public void updateReturnDate(Long loanId, LocalDateTime returnDate) {
-        jpaLoanRepository.updateReturnDate(loanId, returnDate);
+    public boolean existsById(Long loanId) {
+        return existsById(loanId);
     }
 
-    @Override
-    public void updatePenalty(Long loanId, BigDecimal penalty) {
-        jpaLoanRepository.updatePenalty(loanId, penalty);
-    }
+
 }
