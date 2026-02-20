@@ -1,11 +1,11 @@
 spring:
   application:
     name: projet-bibliotheque
-  security:
-    user:
-      name: teddy       # Utilisateur en mémoire pour Spring Security
-      password: teddy123
-      roles: ADMIN
+#  security:
+#    user:
+#      name: teddy       # Utilisateur en mémoire pour Spring Security
+#      password: teddy123
+#      roles: ADMIN
 
   datasource:
     url: jdbc:postgresql://localhost:5432/projet-bibliotheque?sslmode=disable
