@@ -2,6 +2,7 @@ package com.pkf.projet_bibliotheque.Presentation.Dto.Request;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record BookRequestDto(
         @NotBlank(message = " obligatoire")
@@ -10,7 +11,7 @@ public record BookRequestDto(
         String author,
         @NotBlank(message = " obligatoire")
         String category,
-        @NotBlank(message = " obligatoire")
+        @NotNull(message = " obligatoire")
         int totalCopies
 ) {
 
