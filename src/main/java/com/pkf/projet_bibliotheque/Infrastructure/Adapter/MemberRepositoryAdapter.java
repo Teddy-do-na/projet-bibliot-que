@@ -1,6 +1,7 @@
 package com.pkf.projet_bibliotheque.Infrastructure.Adapter;
 
 import com.pkf.projet_bibliotheque.Application.Ports.Output.MemberRepository;
+import com.pkf.projet_bibliotheque.Domain.exception.memberException.MemberNotFoundException;
 import com.pkf.projet_bibliotheque.Domain.model.Member;
 import com.pkf.projet_bibliotheque.Infrastructure.Persistence.Entity.MemberEntity;
 import com.pkf.projet_bibliotheque.Infrastructure.Persistence.JPA.JpaMemberRepository;
@@ -21,6 +22,9 @@ public class MemberRepositoryAdapter implements MemberRepository {
 
     @Override
     public Member save(Member member) {
+        if (jpaMemberRepository.existsByEmail(member.getEmail())){
+            throw new RuntimeException("Un membre existe deja avec cet email");
+        }
         MemberEntity memberEntity = memberEntityMapper.toEntity(member);
         MemberEntity memberSaved = jpaMemberRepository.save(memberEntity);
         return memberEntityMapper.toDomain(memberSaved);
@@ -28,6 +32,9 @@ public class MemberRepositoryAdapter implements MemberRepository {
 
     @Override
     public Optional<Member> findById(Long id) {
+        if (!jpaMemberRepository.existsById(id)){
+            throw new MemberNotFoundException("Member not found");
+        }
         return jpaMemberRepository.findById(id)
                 .map(memberEntityMapper::toDomain);
     }
@@ -43,7 +50,15 @@ public class MemberRepositoryAdapter implements MemberRepository {
 
     @Override
     public void deleteById(Long id) {
+        if (!jpaMemberRepository.existsById(id)){
+            throw new MemberNotFoundException("Member not found");
+        }
         jpaMemberRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long memberId) {
+        return jpaMemberRepository.existsById(memberId);
     }
 
 }

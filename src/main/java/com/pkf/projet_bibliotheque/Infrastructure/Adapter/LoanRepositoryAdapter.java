@@ -1,6 +1,7 @@
 package com.pkf.projet_bibliotheque.Infrastructure.Adapter;
 
 import com.pkf.projet_bibliotheque.Application.Ports.Output.LoanRepository;
+import com.pkf.projet_bibliotheque.Domain.exception.loanException.LoanNotFoundException;
 import com.pkf.projet_bibliotheque.Domain.model.Loan;
 import com.pkf.projet_bibliotheque.Infrastructure.Persistence.Entity.LoanEntity;
 import com.pkf.projet_bibliotheque.Infrastructure.Persistence.JPA.JpaLoanRepository;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,6 +28,9 @@ public class LoanRepositoryAdapter implements LoanRepository {
 
     @Override
     public Optional<Loan> findById(Long id) {
+        if (!jpaLoanRepository.findById(id).isPresent()){
+            throw new LoanNotFoundException("Loan not found");
+        }
         return jpaLoanRepository.findById(id)
                 .map(loanEntityMapper::toDomain);
     }
@@ -72,12 +75,12 @@ public class LoanRepositoryAdapter implements LoanRepository {
 
     @Override
     public long countActiveByMemberId(Long memberId) {
-        return countActiveByMemberId(memberId);
+        return jpaLoanRepository.countActiveByMemberId(memberId);
     }
 
     @Override
     public long countActiveByBookId(Long bookId) {
-        return countActiveByBookId(bookId);
+        return jpaLoanRepository.countActiveByBookId(bookId);
     }
 
     @Override
@@ -87,7 +90,18 @@ public class LoanRepositoryAdapter implements LoanRepository {
 
     @Override
     public boolean existsById(Long loanId) {
-        return existsById(loanId);
+        if (!jpaLoanRepository.findById(loanId).isPresent()){
+            throw new LoanNotFoundException("Loan not found");
+        }
+        return jpaLoanRepository.existsById(loanId);
+    }
+
+    @Override
+    public List<Loan> findByReturnDateIsNull() {
+        return jpaLoanRepository.findAll()
+                .stream()
+                .map(loanEntityMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
 

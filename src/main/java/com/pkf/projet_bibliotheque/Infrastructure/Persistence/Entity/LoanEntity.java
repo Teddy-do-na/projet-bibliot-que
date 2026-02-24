@@ -3,6 +3,7 @@ package com.pkf.projet_bibliotheque.Infrastructure.Persistence.Entity;
 import com.pkf.projet_bibliotheque.Domain.model.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
@@ -20,7 +21,7 @@ public class LoanEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne
@@ -30,16 +31,16 @@ public class LoanEntity {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity member;
-
+    @CreationTimestamp
     @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;
-
+    @CreationTimestamp
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
-
+    @CreationTimestamp
     @Column(name = "return_date")
     private LocalDate returnDate;
-    @Column(name = "penalty")
+    @Column(name = "penalty",precision = 10,scale = 2,nullable = false)
     private BigDecimal penalty;
 
 }
