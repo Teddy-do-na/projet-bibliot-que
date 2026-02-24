@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/vi/loans")
+@RequestMapping("/api/v1/loans")
 public class LoanController {
     private final CalculatePenaltiesUseCase calculatePenaltiesUseCase;
     private final BorrowBookUseCase borrowBookUseCase;
@@ -28,7 +28,7 @@ public class LoanController {
     private final ReturnBookUseCase returnBookUseCase;
     private final LoanDtoMapper loanDtoMapper;
 
-    @PostMapping("/borrow")
+    @PostMapping
     public ResponseEntity<LoanResponseDto> borrowBook(@Valid @RequestBody LoanRequestDto loanRequestDto) {
 
         Loan loan = loanDtoMapper.toDomain(loanRequestDto);

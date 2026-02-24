@@ -2,6 +2,7 @@ package com.pkf.projet_bibliotheque.Application.Services.Loan;
 
 import com.pkf.projet_bibliotheque.Application.Ports.Input.Loan.DeleteLoanUseCase;
 import com.pkf.projet_bibliotheque.Application.Ports.Output.LoanRepository;
+import com.pkf.projet_bibliotheque.Application.Ports.Output.MemberRepository;
 import com.pkf.projet_bibliotheque.Domain.exception.loanException.LoanNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -37,7 +37,7 @@ public class BorrowBookService implements BorrowBookUseCase {
                 .orElseThrow(() -> new MemberNotFoundException("Membre non trouvé avec cette id " + memberId));
         long activeLoans = loanRepository.countActiveByMemberId(memberId);
         if (activeLoans >= MAX_LOANS_PER_MEMBER) {
-            throw new BorrowLimitExceededException("le membre a deja atteit le nombre maximal de prets(" + MAX_LOANS_PER_MEMBER + ")");
+            throw new BorrowLimitExceededException("le membre a deja atteind le nombre maximal de prets(" + MAX_LOANS_PER_MEMBER + ")");
         }
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException("Livre non trouvé avec cette id " + bookId));
@@ -55,12 +55,14 @@ public class BorrowBookService implements BorrowBookUseCase {
         LocalDateTime dueDate = loanDate.plusDays(DEFAULT_LOAN_DURATION_DAYS);
         Loan loan = new Loan();
         loan.setBookId(bookId);
+        loan.setLoanDate(loanDate);
         loan.setMemberId(memberId);
-        loan.setReturnDate(loanDate);
         loan.setDueDate(dueDate);
         loan.setReturnDate(null);
         loan.setPenalty(BigDecimal.ZERO);
-        return loanRepository.save(loan);
+        Loan savedLoan = loanRepository.save(loan);
+
+        return savedLoan;
 
 
     }

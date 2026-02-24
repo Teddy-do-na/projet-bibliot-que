@@ -16,7 +16,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop           # ✅ Crée/Met à jour automatiquement les tables selon les entités
+      ddl-auto: update # ✅ Crée/Met à jour automatiquement les tables selon les entités
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -49,3 +49,6 @@ logging:
     com.pkf.projet_bibliotheque: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+server:
+  port: 2004
