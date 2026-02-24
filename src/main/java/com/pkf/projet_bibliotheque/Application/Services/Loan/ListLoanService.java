@@ -33,7 +33,8 @@ public class ListLoanService implements ListLoanUseCase {
 
     @Override
     public List<Loan> findActiveLoans() {
-        throw new  UnsupportedOperationException("methode non encore implementée.");
+        return loanRepository.findByReturnDateIsNull();
+
     }
 
     @Override

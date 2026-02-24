@@ -11,12 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CalculatePenalitiesService implements CalculatePenaltiesUseCase {
+public class CalculatePenaltiesService implements CalculatePenaltiesUseCase {
     private final LoanRepository loanRepository;
     private static final BigDecimal DAILY_PENALTY = new BigDecimal("0.50");
 
@@ -26,7 +25,7 @@ public class CalculatePenalitiesService implements CalculatePenaltiesUseCase {
                 .orElseThrow(() -> new LoanNotFoundException("Pret non trouvé avec l'id " + loanId));
 
         if (loan.getReturnDate() == null) {
-            throw new PenaltyCalculationException("Impossible de calcuker la penalité que le livre n'est pas retourné");
+            throw new PenaltyCalculationException("Impossible de calculer la pénalité tant que le livre n'est pas retourné");
         }
 
         if (!loan.getReturnDate().isAfter(loan.getDueDate())) {

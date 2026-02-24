@@ -30,4 +30,10 @@ public interface JpaLoanRepository extends JpaRepository<LoanEntity, UUID> {
 
     void deleteById(Long loanId);
 
+    long countActiveByMemberId(Long memberId);
+
+    long countActiveByBookId(Long bookId);
+
+    boolean existsById(Long loanId);
+    Object findByReturnDateIsNull();
 }

@@ -21,4 +21,5 @@ public class Loan {
     private LocalDateTime dueDate;
     private LocalDateTime returnDate;
     private BigDecimal penalty;
+    private int renewalCount = 0;
 }

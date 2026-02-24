@@ -44,9 +44,10 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<BookResponseDto>> getBookById(@PathVariable Long id) {
-        Optional<Book> book = getBookUseCase.findByIdBook(id);
-        return ResponseEntity.ok(Optional.ofNullable(bookDtoMapper.toReponse(book.orElse(null))));
+    public ResponseEntity<BookResponseDto> getBookById(@PathVariable Long id) {
+        return getBookUseCase.findByIdBook(id)
+                .map(book -> ResponseEntity.ok(bookDtoMapper.toReponse(book)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
@@ -58,7 +59,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        ResponseEntity.ok(deleteBookUseCase.deleteBook(id));
-        return ResponseEntity.noContent().build();
+         deleteBookUseCase.deleteBook(id);
+         return ResponseEntity.noContent().build();
     }
 }

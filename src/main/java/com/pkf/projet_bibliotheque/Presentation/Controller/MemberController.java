@@ -51,7 +51,7 @@ public class MemberController {
         return ResponseEntity.ok(memberDtoMapper.toDto(updatedBook));
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMember(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
         deleteMemberUseCase.deleteMember(id);
         return ResponseEntity.noContent().build();
     }

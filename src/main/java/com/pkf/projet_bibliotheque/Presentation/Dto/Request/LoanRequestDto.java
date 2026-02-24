@@ -1,22 +1,24 @@
 package com.pkf.projet_bibliotheque.Presentation.Dto.Request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record LoanRequestDto (
-        @NotBlank(message = "obligatoire")
+        @NotNull(message = "Member ID is required")
         Long memberId,
-        @NotBlank(message = "obligatoire")
+        @NotNull(message = "Book ID is required")
         Long bookId,
-        @NotBlank(message = "obligatoire")
-        LocalDateTime loanDate,
-        @NotBlank(message = "obligatoire")
-        LocalDateTime dueDate,
-        @NotBlank(message = "obligatoire")
-        LocalDateTime returnDate,
-        @NotBlank(message = "obligatoire")
+        @NotNull(message = "obligatoire")
+        LocalDate loanDate,
+        @NotNull(message = "obligatoire")
+        LocalDate dueDate,
+        @NotNull(message = "obligatoire")
+        LocalDate returnDate,
+        @NotNull(message = "obligatoire")
         BigDecimal penalty
 ){
 }

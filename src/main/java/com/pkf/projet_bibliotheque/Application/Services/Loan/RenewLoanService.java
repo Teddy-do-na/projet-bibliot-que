@@ -4,6 +4,7 @@ import com.pkf.projet_bibliotheque.Application.Ports.Input.Loan.RenewLoanUseCase
 import com.pkf.projet_bibliotheque.Application.Ports.Output.LoanRepository;
 import com.pkf.projet_bibliotheque.Domain.exception.loanException.LoanExpiredException;
 import com.pkf.projet_bibliotheque.Domain.exception.loanException.LoanNotFoundException;
+import com.pkf.projet_bibliotheque.Domain.exception.loanException.MaximumRenewalsExceededException;
 import com.pkf.projet_bibliotheque.Domain.model.Loan;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RenewLoanService implements RenewLoanUseCase {
     private final LoanRepository loanRepository;
-    private static final int Max_RENEWALS = 2;
+    private static final int MAX_RENEWALS = 2;
     private static final int RENEWAL_DAYS = 14;
 
     @Override
@@ -31,6 +32,9 @@ public class RenewLoanService implements RenewLoanUseCase {
 
         if (loan.getDueDate().isBefore(LocalDateTime.now())){
             throw new LoanExpiredException("Impossible de renouveler un pret expiré");
+        }
+        if (loan.getRenewalCount() >= MAX_RENEWALS) {
+            throw new MaximumRenewalsExceededException("Nombre maximal de renouvellements atteint (" + MAX_RENEWALS + ")");
         }
 
         loan.setDueDate(loan.getDueDate().plusDays(RENEWAL_DAYS));

@@ -1,6 +1,7 @@
 package com.pkf.projet_bibliotheque.Infrastructure.Adapter;
 
 import com.pkf.projet_bibliotheque.Application.Ports.Output.BookRepository;
+import com.pkf.projet_bibliotheque.Domain.exception.bookException.BookNotFoundException;
 import com.pkf.projet_bibliotheque.Domain.model.Book;
 import com.pkf.projet_bibliotheque.Infrastructure.Persistence.Entity.BookEntity;
 import com.pkf.projet_bibliotheque.Infrastructure.Persistence.JPA.JpaBookRepository;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,6 +28,9 @@ public class BookRepositoryAdapter implements BookRepository {
 
     @Override
     public Optional<Book> findById(Long id) {
+        if (!jpaBookRepository.existsById(id)) {
+            throw new BookNotFoundException("Book not found");
+        }
         return jpaBookRepository.findById(id)
                 .map(bookEntityMapper::toDomain);
     }
@@ -41,6 +44,9 @@ public class BookRepositoryAdapter implements BookRepository {
 
     @Override
     public void deleteById(Long id) {
+        if (!jpaBookRepository.existsById(id)) {
+            throw new BookNotFoundException("Book not found");
+        }
         jpaBookRepository.deleteById(id);;
     }
 

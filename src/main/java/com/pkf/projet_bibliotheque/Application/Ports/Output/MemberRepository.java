@@ -11,5 +11,5 @@ public interface MemberRepository {
     Optional<Member> findById(Long id);
     List<Member> findAll();
     void deleteById(Long id);
-
+    boolean existsById(Long memberId);
 }
