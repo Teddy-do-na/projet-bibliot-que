@@ -10,8 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.time.LocalDate;
 
 @Service
 @Transactional
@@ -30,7 +29,7 @@ public class RenewLoanService implements RenewLoanUseCase {
             throw new LoanNotFoundException("Impossible de renouveler un pret deja retourné");
         }
 
-        if (loan.getDueDate().isBefore(LocalDateTime.now())){
+        if (loan.getDueDate().isBefore(LocalDate.now())){
             throw new LoanExpiredException("Impossible de renouveler un pret expiré");
         }
         if (loan.getRenewalCount() >= MAX_RENEWALS) {

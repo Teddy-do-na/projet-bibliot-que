@@ -8,12 +8,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "loans")
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,16 +29,15 @@ public class LoanEntity {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity member;
-    @CreationTimestamp
     @Column(name = "loan_date", nullable = false)
     private LocalDate loanDate;
-    @CreationTimestamp
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
-    @CreationTimestamp
     @Column(name = "return_date")
     private LocalDate returnDate;
     @Column(name = "penalty",precision = 10,scale = 2,nullable = false)
     private BigDecimal penalty;
+    @Column(name = "renewal_count")
+    private int renewalCount;
 
 }

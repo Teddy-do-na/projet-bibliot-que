@@ -8,17 +8,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record LoanRequestDto (
-        @NotNull(message = "Member ID is required")
+        @NotNull(message = "Member ID est obligatoire")
         Long memberId,
-        @NotNull(message = "Book ID is required")
+        @NotNull(message = "Book ID est obligatoire")
         Long bookId,
-        @NotNull(message = "obligatoire")
-        LocalDate loanDate,
-        @NotNull(message = "obligatoire")
-        LocalDate dueDate,
-        @NotNull(message = "obligatoire")
-        LocalDate returnDate,
-        @NotNull(message = "obligatoire")
-        BigDecimal penalty
+        @NotNull(message = "La date d'emprunt est obligatoire")
+        LocalDate loanDate
 ){
 }

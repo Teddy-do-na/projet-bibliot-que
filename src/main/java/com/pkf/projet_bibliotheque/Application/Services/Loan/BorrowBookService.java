@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Service
@@ -31,8 +31,9 @@ public class BorrowBookService implements BorrowBookUseCase {
     private static final int MAX_LOANS_PER_MEMBER = 5;
     private static final int DEFAULT_LOAN_DURATION_DAYS = 21;
 
+
     @Override
-    public Loan borrowBook(Long memberId, Long bookId, LocalDateTime loanDate) {
+    public Loan borrowBook(Long memberId, Long bookId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException("Membre non trouvé avec cette id " + memberId));
         long activeLoans = loanRepository.countActiveByMemberId(memberId);
@@ -51,13 +52,11 @@ public class BorrowBookService implements BorrowBookUseCase {
         if (alreadyBorrowed) {
             throw new LoanAlreadyExistsException("Le membre a deja emprunté ce livre et ne l'a pas encore retourné");
         }
-
-        LocalDateTime dueDate = loanDate.plusDays(DEFAULT_LOAN_DURATION_DAYS);
         Loan loan = new Loan();
-        loan.setBookId(bookId);
-        loan.setLoanDate(loanDate);
         loan.setMemberId(memberId);
-        loan.setDueDate(dueDate);
+        loan.setBookId(bookId);
+        loan.setLoanDate(LocalDate.now());
+        loan.setDueDate(LocalDate.now().plusDays(DEFAULT_LOAN_DURATION_DAYS));
         loan.setReturnDate(null);
         loan.setPenalty(BigDecimal.ZERO);
         Loan savedLoan = loanRepository.save(loan);
