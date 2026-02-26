@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface JpaLoanRepository extends JpaRepository<LoanEntity, UUID> {
+public interface JpaLoanRepository extends JpaRepository<LoanEntity, Long> {
     Optional<LoanEntity> findById(Long id);
 
     List<LoanEntity> findByMemberId(Long memberId);
@@ -35,5 +35,4 @@ public interface JpaLoanRepository extends JpaRepository<LoanEntity, UUID> {
     long countActiveByBookId(Long bookId);
 
     boolean existsById(Long loanId);
-    Object findByReturnDateIsNull();
 }

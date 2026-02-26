@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class ReturnBookService implements ReturnBookUseCase {
         if (loan.getReturnDate() != null) {
             throw new BookAlreadyReturnedException("Ce livre a deja ete retourné");
         }
-        loan.setReturnDate(LocalDateTime.now());
+        loan.setReturnDate(LocalDate.now());
 
         if (loan.getReturnDate().isAfter(loan.getDueDate())){
             BigDecimal penalty = calculatePenaltiesUseCase.calculatePenalties(loanId);
